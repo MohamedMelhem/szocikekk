@@ -1,0 +1,38 @@
+<%- include('partials/header', { pageTitle }) %>
+  <section class="intro">
+    <p class="eyebrow">Keresés</p>
+    <h1>Szócikkek szűrése</h1>
+    <p class="lead">Add meg a minimális heti látogatottságot a lista szűkítéséhez.</p>
+  </section>
+
+  <section class="panel">
+    <form class="filter-form" action="/filter" method="get">
+      <label for="minViews">Minimum látogatásszám</label>
+      <div class="form-row">
+        <input id="minViews" name="minViews" type="number" value="<%= minViews %>">
+        <button type="submit">Szűrés</button>
+      </div>
+    </form>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Szócikk címe</th>
+            <th scope="col" class="numeric">Heti látogatások</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% articleViews.forEach((articleView) => { %>
+            <tr>
+              <td><a href="<%= articleView.url %>" target="_blank" rel="noopener noreferrer"><%= articleView.title %></a></td>
+              <td class="numeric"><%= articleView.views.toLocaleString('hu-HU') %></td>
+            </tr>
+          <% }); %>
+          <% if (articleViews.length === 0) { %>
+            <tr><td colspan="2" class="empty-state">Nincs a feltételnek megfelelő szócikk.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+<%- include('partials/footer') %>

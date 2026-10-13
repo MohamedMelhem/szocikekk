@@ -1,0 +1,38 @@
+<%- include('partials/header', { pageTitle }) %>
+  <section class="intro">
+    <p class="eyebrow">Heti statisztika</p>
+    <h1>Wikipedia-szócikkek</h1>
+    <p class="lead">Böngéssz a szócikkek között, és nézd meg heti látogatottságukat.</p>
+  </section>
+
+  <section class="panel" aria-label="Szócikkek listája">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">
+              <a class="sort-link" href="/?sort=title&direction=<%= sortBy === 'title' && sortDirection === 'asc' ? 'desc' : 'asc' %>">
+                Szócikk címe
+                <span aria-hidden="true"><%= sortBy === 'title' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' %></span>
+              </a>
+            </th>
+            <th scope="col" class="numeric">
+              <a class="sort-link" href="/?sort=views&direction=<%= sortBy === 'views' && sortDirection === 'asc' ? 'desc' : 'asc' %>">
+                Heti látogatások
+                <span aria-hidden="true"><%= sortBy === 'views' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' %></span>
+              </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% articleViews.forEach((articleView) => { %>
+            <tr class="<%= articleView.views > 1000 ? 'high-views' : '' %>">
+              <td><a href="<%= articleView.url %>" target="_blank" rel="noopener noreferrer"><%= articleView.title %></a></td>
+              <td class="numeric"><%= articleView.views.toLocaleString('hu-HU') %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+<%- include('partials/footer') %>

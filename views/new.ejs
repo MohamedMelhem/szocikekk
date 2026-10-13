@@ -1,0 +1,30 @@
+<%- include('partials/header', { pageTitle }) %>
+  <section class="intro">
+    <p class="eyebrow">Adatbázis bővítése</p>
+    <h1>Új szócikk felvétele</h1>
+    <p class="lead">Add meg a szócikk címét, hivatkozását és heti látogatottságát.</p>
+  </section>
+
+  <section class="panel form-panel">
+    <% if (success) { %>
+      <div class="notice success" role="status">Sikeres adatfelvétel</div>
+      <a class="button-link" href="/">Vissza a főoldalra</a>
+    <% } else { %>
+      <form action="/new" method="post">
+        <label for="title">Szócikk címe</label>
+        <input id="title" name="title" type="text" value="<%= formData.title %>">
+
+        <label for="url">Szócikk URL-je</label>
+        <input id="url" name="url" type="text" value="<%= formData.url %>">
+
+        <label for="views">Heti látogatások száma</label>
+        <input id="views" name="views" type="number" value="<%= formData.views %>">
+
+        <button type="submit">Szócikk mentése</button>
+      </form>
+      <% if (error) { %>
+        <p class="notice error" role="alert"><%= error %></p>
+      <% } %>
+    <% } %>
+  </section>
+<%- include('partials/footer') %>
